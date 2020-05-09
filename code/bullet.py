@@ -23,5 +23,5 @@ class Bullet(Sprite):
 
     def draw_bullet(self):
         """draw bullet on screen"""
-        if self.burst:
-            pygame.draw.rect(self.screen,self.color,self.rect)
+        # if self.burst:
+        pygame.draw.rect(self.screen,self.color,self.rect)
