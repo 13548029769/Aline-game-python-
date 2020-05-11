@@ -35,3 +35,8 @@ class Ship():
             self.center -= self.ai_settings.ship_speed_factor
 
         self.rect.centerx = self.center
+
+
+    def center_ship(self):
+        """make spacecraft on center of screen"""
+        self.center = self.screen_rect.centerx
