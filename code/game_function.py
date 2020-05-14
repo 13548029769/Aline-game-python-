@@ -6,7 +6,7 @@ from random import randint
 from time import sleep
 
 
-def check_events(ai_settings,screen,stats,play_button,ship,bullets,aliens):
+def check_events(ai_settings,screen,stats,play_button,ship,bullets,aliens,sb):
     """respond keyboard and mouse events"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -18,10 +18,10 @@ def check_events(ai_settings,screen,stats,play_button,ship,bullets,aliens):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             """respond the button and mouse events"""
             mouse_x,mouse_y = pygame.mouse.get_pos()
-            check_play_button(mouse_x, mouse_y, play_button, stats,aliens,bullets,ai_settings,ship,screen)
+            check_play_button(mouse_x, mouse_y, play_button, stats,aliens,bullets,ai_settings,ship,screen,sb)
 
 
-def check_play_button(mouse_x, mouse_y, play_button, stats,aliens,bullets,ai_settings,ship,screen):
+def check_play_button(mouse_x, mouse_y, play_button, stats,aliens,bullets,ai_settings,ship,screen,sb):
     """star game when user click the play button"""
     if play_button.rect.collidepoint(mouse_x, mouse_y) and \
             not stats.game_active:
@@ -33,6 +33,11 @@ def check_play_button(mouse_x, mouse_y, play_button, stats,aliens,bullets,ai_set
         #reset game statistics
         stats.rest_stats()
         stats.game_active = True
+
+        # reset scoreboard image
+        sb.prep_level()
+        sb.prep_high_score()
+        sb.prep_score()
 
         aliens.empty()
         bullets.empty()
@@ -99,12 +104,19 @@ def check_bullet_alien_collisions(aliens, bullets, screen, ship, ai_settings,sta
             stats.score += ai_settings.alien_point * len(aliens)
             sb.prep_score()
 
+        check_high_score(stats, sb)
+
+
     if len(aliens) == 0:
         # delete all bullets
         bullets.empty()
         ai_settings.increase_speed()
         # create aliens
         create_feelt(ai_settings, screen, ship, aliens)
+        # update level
+        stats.level += 1
+        sb.prep_level()
+
 
 
 
@@ -207,3 +219,10 @@ def check_alien_bottom(ai_settings,stats,screen,ship,aliens,bullets):
         if alien.rect.bottom >= screen_rect.bottom:
             ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
             break
+
+
+def check_high_score(stats,sb):
+    """check whether the highest score exit"""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()

@@ -4,6 +4,7 @@ class GameStats():
         """init the statistics"""
         self.ai_settings = ai_settings
         self.game_active = False
+        self.high_score = 0
         self.rest_stats()
 
 
@@ -11,3 +12,4 @@ class GameStats():
         """initialization Likely to change variable at game running time"""
         self.ships_left = self.ai_settings.ship_limit
         self.score = 0
+        self.level = 1
