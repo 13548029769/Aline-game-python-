@@ -10,3 +10,4 @@ class GameStats():
     def rest_stats(self):
         """initialization Likely to change variable at game running time"""
         self.ships_left = self.ai_settings.ship_limit
+        self.score = 0
