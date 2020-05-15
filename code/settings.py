@@ -12,19 +12,19 @@ class Settings():
 
         self.bullet_height = 15
         self.bullet_color = (60,60,60)
-        self.bullets_allowed = 30
+        self.bullets_allowed = 1000
 
-        self.fleet_drop_speed = 5
+        self.fleet_drop_speed = 50
         self.speedup_scale = 1.6
         self.initialize_dynamic_settings()
 
 
     def initialize_dynamic_settings(self):
-        self.alien_speed_factor = 0.5
+        self.alien_speed_factor = 10
         self.ship_speed_factor = 0.5
         self.bullet_speed_factor = 2
         self.alien_point = 50
-        self.bullet_width = 10
+        self.bullet_width = 1200
 
         # move to right : 1 ; move to left :-1
         self.fleet_direction = 1
